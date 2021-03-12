@@ -31,11 +31,11 @@ RSpec.describe MoviesController, :type => :controller do
       end
 
 
-      context "GET #new" do
-        before :each do        
-          @user=create(:user)
-          sign_in @user
-        end
+    context "GET #new" do
+      before :each do        
+        @user=create(:user)
+        sign_in @user
+      end
         it "should sucess and render to new movie" do 
           get :new
           expect(response).to have_http_status(200)
@@ -47,34 +47,34 @@ RSpec.describe MoviesController, :type => :controller do
           expect(assigns(:movie)).to be_a(Movie)
           expect(assigns(:movie)).to be_a_new(Movie)    
         end
-      end
+    end
 
-      context "GET #edit" do
-        before :each do        
-            @user=create(:user)
-            sign_in @user
-        end
-        let(:movie) { create(:movie)  }
-        it "should sucess and render to edit movie" do
-          get :edit, params: {id: movie.id }
-          expect(response).to render_template(:edit)
-          expect(assigns(:movie)).to be_a(Movie)    
-        end   
+    context "GET #edit" do
+      before :each do        
+          @user=create(:user)
+          sign_in @user
       end
+      let(:movie) { create(:movie)  }
+      it "should sucess and render to edit movie" do
+        get :edit, params: {id: movie.id }
+        expect(response).to render_template(:edit)
+        expect(assigns(:movie)).to be_a(Movie)    
+      end   
+    end
     
-      context "POST #create " do
-        before :each do        
-            @user=create(:user)
-            sign_in @user
-        end
-        let!(:params) {
-          { name: "X-Men", synopsis: "X-Men é uma série de filmes americana de super-heróis.", release_year: 2000, director:"Simon Kinberg", rating: 5 }
-          }
-        it "create a new movie" do
-          post :create, params: { movie: params }
-          expect(flash[:notice]).to eq("Movie was successfully created.")
-          expect(response).to redirect_to(action: :show, id: assigns(:movie).id)    
-        end
+    context "POST #create " do
+      before :each do        
+          @user=create(:user)
+          sign_in @user
+      end
+      let!(:params) {
+        { name: "X-Men", synopsis: "X-Men é uma série de filmes americana de super-heróis.", release_year: 2000, director:"Simon Kinberg", rating: 5 }
+        }
+      it "create a new movie" do
+        post :create, params: { movie: params }
+        expect(flash[:notice]).to eq("Movie was successfully created.")
+        expect(response).to redirect_to(action: :show, id: assigns(:movie).id)    
+      end
     
         it "not create a new movie " do
           params =  { synopsis: "X-Men é uma série de filmes americana de super-heróis.", release_year: 2000, director:"Simon Kinberg", rating: 5}
@@ -83,47 +83,47 @@ RSpec.describe MoviesController, :type => :controller do
         end
       end
 
-      context "PUT #update" do
-        before :each do        
-            @user=create(:user)
-            sign_in @user
-        end
-        let!(:movie) { create(:movie) } 
-        it "should update movie info" do
-          params =  { name: "Update X-Men"}
-          patch :update, params: { id: movie.id, movie: params }
-          movie.reload
-          expect(movie.name).to eq(params[:name])
-          expect(flash[:notice]).to eq("Movie was successfully updated.")
-          expect(response).to redirect_to(action: :show, id: assigns(:movie).id)      
-        end
+    context "PUT #update" do
+      before :each do        
+          @user=create(:user)
+          sign_in @user
+      end
+      let!(:movie) { create(:movie) } 
+      it "should update movie info" do
+        params =  { name: "Update X-Men"}
+        patch :update, params: { id: movie.id, movie: params }
+        movie.reload
+        expect(movie.name).to eq(params[:name])
+        expect(flash[:notice]).to eq("Movie was successfully updated.")
+        expect(response).to redirect_to(action: :show, id: assigns(:movie).id)      
+      end
             
-        it "should not update movie info" do 
-          params = { name: nil }
+      it "should not update movie info" do 
+        params = { name: nil }
     
-          put :update, params: { id: movie.id, movie: params}
+        put :update, params: { id: movie.id, movie: params}
     
-          expect(response).to render_template(:edit) 
+        expect(response).to render_template(:edit) 
         end    
-      end
+    end
       
-      context "DELETE #destroy" do
-        before :each do        
-            @user=create(:user)
+    context "DELETE #destroy" do
+      before :each do        
+        @user=create(:user)
             sign_in @user
-        end
-
-        let!(:movie) { create(:movie)}
-        it "should dele movie" do
-          delete :destroy, params: { id: movie.id}
-          expect(flash[:notice]).to eq("Movie was successfully destroyed.")
-          expect(response).to redirect_to(action: :index)
-        end  
       end
 
-      context 'and search for movie' do
-        scenario 'successfully' do
+      let!(:movie) { create(:movie)}
+      it "should dele movie" do
+        delete :destroy, params: { id: movie.id}
+        expect(flash[:notice]).to eq("Movie was successfully destroyed.")
+        expect(response).to redirect_to(action: :index)
+      end  
+    end
+
+    context 'and search for movie' do
+      scenario 'successfully' do
         Movie.create(name: "X-Men", synopsis: "X-Men é uma série de filmes americana de super-heróis.", release_year: 2000, director:"Simon Kinberg", rating: 5)
-        end
       end
+    end
 end
