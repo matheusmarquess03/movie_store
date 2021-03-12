@@ -1,24 +1,26 @@
-# README
+# OVERVIEW
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Create a film base in Ruby On Rails that will help movie fans organize their favorite movies
 
-Things you may want to cover:
+## SETTING UP AN ENVIRONMENT
 
-* Ruby version
 
-* System dependencies
+The <a href="https://guides.rubyonrails.org/"> Ruby on Rails Guides </a> will provide instructions to help you install and confirm and use Ruby on Rails.
 
-* Configuration
+After installing and configuring Ruby on Rails, clone the <a href="https://github.com/matheusmarquess03/appProvider"> project </a> on your development computer.
 
-* Database creation
+To run the application on your computer, proceed as follows:
 
-* Database initialization
+   <ol>
+      <li> cd < directory where you cloned the project repository to > </li>
+      <li> Update your database configuration at config/database.yml </li>
+      <li> rails db: create (to create a database) </li>
+      <li> rails db: migrate </li>
+      <li> Rails server </li>
+      <li> load http: // localhost: 3000 in your web browser. </li>
+   </ol>
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+## OPERATION
 
-* Deployment instructions
-
-* ...
+To register a movie, comment and rate it is necessary to create an account. After logging in, you are able to manage your movies.
